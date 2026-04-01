@@ -108,6 +108,16 @@ export function custom(text: string, colors?: Partial<HudColorOverrides>): strin
   return withOverride(text, colors?.custom, CLAUDE_ORANGE);
 }
 
+export function cost(text: string, colors?: Partial<HudColorOverrides>): string {
+  return withOverride(text, colors?.cost, GREEN);
+}
+
+export function getCostColor(dollars: number, colors?: Partial<HudColorOverrides>): string {
+  if (dollars >= 5) return resolveAnsi(colors?.critical, RED);
+  if (dollars >= 1) return resolveAnsi(colors?.warning, YELLOW);
+  return resolveAnsi(colors?.cost, GREEN);
+}
+
 export function warning(text: string, colors?: Partial<HudColorOverrides>): string {
   return colorize(text, resolveAnsi(colors?.warning, YELLOW));
 }
