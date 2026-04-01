@@ -72,6 +72,7 @@ Claude HUD gives you better insights into what's happening in your Claude Code s
 | **Tool activity** | Watch Claude read, edit, and search files as it happens |
 | **Agent tracking** | See which subagents are running and what they're doing |
 | **Todo progress** | Track task completion in real-time |
+| **Cost tracking** | See cumulative token spend in dollars, accumulated across sessions |
 
 ## What You See
 
@@ -85,6 +86,7 @@ Context █████░░░░░ 45% │ Usage ██░░░░░░░
 
 ### Optional lines (enable via `/claude-hud:configure`)
 ```
+Cost $1.42 | 250k in / 12k out | $0.35/hr        ← Cost tracking
 ◐ Edit: auth.ts | ✓ Read ×3 | ✓ Grep ×2        ← Tools activity
 ◐ explore [haiku]: Finding auth code (2m 15s)    ← Agent status
 ▸ Fix authentication bug (2/5)                   ← Todo progress
@@ -145,7 +147,7 @@ Edit `~/.claude/plugins/claude-hud/config.json` directly for advanced settings s
 |--------|------|---------|-------------|
 | `lineLayout` | string | `expanded` | Layout: `expanded` (multi-line) or `compact` (single line) |
 | `pathLevels` | 1-3 | 1 | Directory levels to show in project path |
-| `elementOrder` | string[] | `["project","context","usage","memory","environment","tools","agents","todos"]` | Expanded-mode element order. Omit entries to hide them in expanded mode. |
+| `elementOrder` | string[] | `["project","context","usage","cost","memory","environment","tools","agents","todos"]` | Expanded-mode element order. Omit entries to hide them in expanded mode. |
 | `gitStatus.enabled` | boolean | true | Show git branch in HUD |
 | `gitStatus.showDirty` | boolean | true | Show `*` for uncommitted changes |
 | `gitStatus.showAheadBehind` | boolean | false | Show `↑N ↓N` for ahead/behind remote |
@@ -165,6 +167,7 @@ Edit `~/.claude/plugins/claude-hud/config.json` directly for advanced settings s
 | `display.showTodos` | boolean | false | Show todos progress line |
 | `display.showSessionName` | boolean | false | Show session slug or custom title from `/rename` |
 | `display.showClaudeCodeVersion` | boolean | false | Show the installed Claude Code version, e.g. `CC v2.1.81` |
+| `display.showCost` | boolean | false | Show cumulative token cost in dollars, persisted across sessions |
 | `display.showMemoryUsage` | boolean | false | Show an approximate system RAM usage line in expanded layout |
 | `colors.context` | color value | `green` | Base color for the context bar and context percentage |
 | `colors.usage` | color value | `brightBlue` | Base color for usage bars and percentages below warning thresholds |
@@ -176,6 +179,7 @@ Edit `~/.claude/plugins/claude-hud/config.json` directly for advanced settings s
 | `colors.git` | color value | `magenta` | Color for git wrapper text such as `git:(` and `)` |
 | `colors.gitBranch` | color value | `cyan` | Color for the git branch and branch status text |
 | `colors.label` | color value | `dim` | Color for labels and secondary metadata such as `Context`, `Usage`, counts, and progress text |
+| `colors.cost` | color value | `green` | Color for the cost display (turns yellow at $1+, red at $5+) |
 | `colors.custom` | color value | `208` | Color for the optional custom line |
 
 Supported color names: `dim`, `red`, `green`, `yellow`, `magenta`, `cyan`, `brightBlue`, `brightMagenta`. You can also use a 256-color number (`0-255`) or hex (`#rrggbb`).
