@@ -79,21 +79,28 @@ export function trackCost(stdin: StdinData, overrides: Partial<CostTrackerDeps> 
   let accCacheWrite = 0;
   let accCacheRead = 0;
 
-  if (previous && previous.transcriptPath === transcriptPath) {
+  if (previous) {
     accInput = previous.accumulatedInput;
     accOutput = previous.accumulatedOutput;
     accCacheWrite = previous.accumulatedCacheWrite;
     accCacheRead = previous.accumulatedCacheRead;
 
-    // Detect compaction: current tokens dropped below last seen
-    if (currentInput < previous.lastSeenInput) {
+    if (previous.transcriptPath === transcriptPath) {
+      // Same session: detect compaction (current tokens dropped below last seen)
+      if (currentInput < previous.lastSeenInput) {
+        accInput += previous.lastSeenInput;
+        accOutput += previous.lastSeenOutput;
+        accCacheWrite += previous.lastSeenCacheWrite;
+        accCacheRead += previous.lastSeenCacheRead;
+      }
+    } else {
+      // New session: carry forward previous session's final totals
       accInput += previous.lastSeenInput;
       accOutput += previous.lastSeenOutput;
       accCacheWrite += previous.lastSeenCacheWrite;
       accCacheRead += previous.lastSeenCacheRead;
     }
   }
-  // If transcriptPath changed, accumulators stay at 0 (new session)
 
   const cache: CostCache = {
     accumulatedInput: accInput,
