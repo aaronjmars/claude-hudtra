@@ -64,6 +64,13 @@ export interface MemoryInfo {
 }
 /** Check if usage limit is reached (either window at 100%) */
 export declare function isLimitReached(data: UsageData): boolean;
+export interface CostData {
+    totalInput: number;
+    totalOutput: number;
+    totalCacheWrite: number;
+    totalCacheRead: number;
+    totalCost: number | null;
+}
 export interface TranscriptData {
     tools: ToolEntry[];
     agents: AgentEntry[];
@@ -82,6 +89,7 @@ export interface RenderContext {
     gitStatus: GitStatus | null;
     usageData: UsageData | null;
     memoryUsage: MemoryInfo | null;
+    costData: CostData | null;
     config: HudConfig;
     extraLabel: string | null;
     claudeCodeVersion?: string;

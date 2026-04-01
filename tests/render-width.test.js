@@ -23,6 +23,7 @@ function baseContext() {
     sessionDuration: '',
     gitStatus: null,
     usageData: null,
+    costData: null,
     config: {
       lineLayout: 'compact',
       showSeparators: false,
@@ -41,6 +42,7 @@ function baseContext() {
         showTools: true,
         showAgents: true,
         showTodos: true,
+        showCost: false,
         autocompactBuffer: 'enabled',
         usageThreshold: 0,
         sevenDayThreshold: 80,

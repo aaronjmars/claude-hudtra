@@ -86,6 +86,16 @@ export function label(text, colors) {
 export function custom(text, colors) {
     return withOverride(text, colors?.custom, CLAUDE_ORANGE);
 }
+export function cost(text, colors) {
+    return withOverride(text, colors?.cost, GREEN);
+}
+export function getCostColor(dollars, colors) {
+    if (dollars >= 5)
+        return resolveAnsi(colors?.critical, RED);
+    if (dollars >= 1)
+        return resolveAnsi(colors?.warning, YELLOW);
+    return resolveAnsi(colors?.cost, GREEN);
+}
 export function warning(text, colors) {
     return colorize(text, resolveAnsi(colors?.warning, YELLOW));
 }

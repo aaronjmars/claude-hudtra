@@ -196,6 +196,18 @@ export function renderSessionLine(ctx: RenderContext): string {
     }
   }
 
+  // Cost display
+  if (display?.showCost && ctx.costData) {
+    if (ctx.costData.totalCost !== null) {
+      const costStr = ctx.costData.totalCost < 0.01 && ctx.costData.totalCost > 0
+        ? '<$0.01'
+        : `$${ctx.costData.totalCost.toFixed(2)}`;
+      parts.push(label(costStr, colors));
+    } else {
+      parts.push(label('$???', colors));
+    }
+  }
+
   // Session duration
   if (display?.showSpeed) {
     const speed = getOutputSpeed(ctx.stdin);

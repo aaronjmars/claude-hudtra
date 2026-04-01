@@ -3,7 +3,7 @@ import { renderSessionLine } from './session-line.js';
 import { renderToolsLine } from './tools-line.js';
 import { renderAgentsLine } from './agents-line.js';
 import { renderTodosLine } from './todos-line.js';
-import { renderIdentityLine, renderProjectLine, renderEnvironmentLine, renderUsageLine, renderMemoryLine, } from './lines/index.js';
+import { renderIdentityLine, renderProjectLine, renderEnvironmentLine, renderUsageLine, renderMemoryLine, renderCostLine, } from './lines/index.js';
 import { dim, RESET } from './colors.js';
 // eslint-disable-next-line no-control-regex
 const ANSI_ESCAPE_PATTERN = /^\x1b\[[0-9;]*m/;
@@ -284,6 +284,8 @@ function renderElementLine(ctx, element) {
             return renderIdentityLine(ctx);
         case 'usage':
             return renderUsageLine(ctx);
+        case 'cost':
+            return display?.showCost === false ? null : renderCostLine(ctx);
         case 'memory':
             return renderMemoryLine(ctx);
         case 'environment':

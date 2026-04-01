@@ -75,6 +75,14 @@ export function isLimitReached(data: UsageData): boolean {
   return data.fiveHour === 100 || data.sevenDay === 100;
 }
 
+export interface CostData {
+  totalInput: number;
+  totalOutput: number;
+  totalCacheWrite: number;
+  totalCacheRead: number;
+  totalCost: number | null; // null if model pricing unknown
+}
+
 export interface TranscriptData {
   tools: ToolEntry[];
   agents: AgentEntry[];
@@ -94,6 +102,7 @@ export interface RenderContext {
   gitStatus: GitStatus | null;
   usageData: UsageData | null;
   memoryUsage: MemoryInfo | null;
+  costData: CostData | null;
   config: HudConfig;
   extraLabel: string | null;
   claudeCodeVersion?: string;
